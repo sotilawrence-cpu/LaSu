@@ -1,0 +1,21 @@
+<h2>Your Loans</h2>
+
+{% for loan in loans %}
+    <div class="card">
+        <p><b>Loan ID:</b> {{ loan.id }}</p>
+        <p><b>Amount:</b> KES {{ loan.amount }}</p>
+        <p><b>Status:</b> {{ loan.status }}</p>
+    </div>
+{% endfor %}
+
+
+<h2>Payment History</h2>
+
+{% for payment in payments %}
+    <div class="card">
+        <p><b>Loan ID:</b> {{ payment.loan_id }}</p>
+        <p><b>Amount Paid:</b> KES {{ payment.amount }}</p>
+        <p><b>Phone:</b> {{ payment.phone }}</p>
+        <p><b>Status:</b> {{ payment.status }}</p>
+    </div>
+{% endfor %}
