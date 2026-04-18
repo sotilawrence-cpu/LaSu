@@ -92,7 +92,7 @@ def login():
 
 # DASHBOARD
 @app.route('/dashboard')
-def dashboard():
+def user_dashboard():
     if 'user_id' not in session:
         return redirect('/login')
 
