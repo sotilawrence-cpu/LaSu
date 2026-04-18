@@ -159,7 +159,7 @@ def mpesa_callback():
 
     return "OK"
 @app.route('/mpesa/callback', methods=['POST'])
-def mpesa_callback():
+def mpesa_confirmation_handler():
     data = request.get_json()
 
     try:
