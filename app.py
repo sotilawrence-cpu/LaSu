@@ -80,7 +80,7 @@ def register():
 
 # LOGIN
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def user_login():
     if request.method == 'POST':
         user = User.query.filter_by(email=request.form['email']).first()
 
