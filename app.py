@@ -143,25 +143,6 @@ class Payment(db.Model):
 def mpesa_callback():
     data = request.get_json()
 
-    print("M-Pesa Callback Received:", data)
-
-    # Extract payment result
-    try:
-        result = data['Body']['stkCallback']['ResultCode']
-
-        if result == 0:
-            print("Payment Successful")
-        else:
-            print("Payment Failed")
-
-    except Exception as e:
-        print("Error parsing callback:", e)
-
-    return "OK"
-@app.route('/mpesa/callback', methods=['POST'])
-def mpesa_confirmation_handler():
-    data = request.get_json()
-
     try:
         callback = data['Body']['stkCallback']
         result_code = callback['ResultCode']
@@ -172,10 +153,8 @@ def mpesa_confirmation_handler():
             amount = metadata[0]['Value']
             phone = metadata[4]['Value']
 
-            # Find latest loan for now (simple logic)
             loan = Loan.query.order_by(Loan.id.desc()).first()
 
-            # Save payment
             payment = Payment(
                 loan_id=loan.id,
                 phone=phone,
@@ -185,7 +164,6 @@ def mpesa_confirmation_handler():
 
             db.session.add(payment)
 
-            # Mark loan as PAID
             loan.status = "PAID"
 
             db.session.commit()
@@ -196,6 +174,7 @@ def mpesa_confirmation_handler():
         print("Callback error:", e)
 
     return "OK"
+            
 
 # LOGOUT
 @app.route('/logout')
@@ -220,7 +199,7 @@ def admin_login():
 
 
 # --------------------
-# ADMIN DASHBOARD
+# ADMIN DASHBOARD 
 # --------------------
 @app.route('/admin/dashboard')
 def admin_dashboard():
