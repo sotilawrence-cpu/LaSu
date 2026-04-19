@@ -140,7 +140,7 @@ class Payment(db.Model):
     status = db.Column(db.String(50), default="Pending")
 # M-PESA
 @app.route('/mpesa/callback', methods=['POST'])
-def mpesa_callback():
+def handle_mpesa_callback():
     data = request.get_json()
 
     try:
